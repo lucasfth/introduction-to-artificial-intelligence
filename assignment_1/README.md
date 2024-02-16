@@ -95,3 +95,54 @@ Path: `L -> M -> D -> C -> P -> B`
 
 
 ## Exercise 3
+
+### 3.a
+
+Initial state: S_0 = <(0, 0, 3, 4), (0, 0, 0, 0) , (0, 0, 1, 2)>
+
+
+
+```hanoi
+[] [] []
+[] [] []
+3  []  1
+4  []  2
+```
+
+Action function: {Move to left tower, Move to center tower, Move to right tower}
+
+Transition model:
+
+## Christian
+Initial state: S_0 = <[4,3,2,1], [], []>
+
+Action function: {Move to left tower, Move to center tower, Move to right tower}
+
+Result function:
+
+1. Move to left tower: applicable if the left tower is empty or the current disk we are moving is smaller than the top disk on the left tower. The result must not be a previous visited state.
+2. Move to center tower: applicable if the center tower is empty or the current disk we are moving is smaller than the top disk on the center tower. The result must not be a previous visited state.
+3. Move to right tower: applicable if the right tower is empty or the current disk we are moving is smaller than the top disk on the right tower. The result must not be a previous visited state.
+
+Is-goal function: {When the rightmost tower has been stacked with all disks}
+
+Action-cost function: {Each disk movement costs one}
+
+## Lucas
+
+1. Move disk to center: applicable if the middle tower is empty
+2. Move disk to center: 
+
+Is-goal function: {When the rightmost tower has been stacked with all disks}
+
+Action-cost function: {Each disk movement costs one}
+
+### 3.b
+#### Towers of Hanoi search tree with n=2 using Christian  search problem
+![Christian towers of hanoi search tree with n=2](/assignment_1/Towers_of_Hanoi_n=2.png)
+
+### 3.c
+
+The size of the space state of Chistian search problem is 18 when n = 2. 
+
+I cannot find the exact number!!!! HELP!!!
