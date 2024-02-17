@@ -149,3 +149,8 @@ If w = 0.5 we cannot shorten the function much:
 
 This means that the function will look at both the actual cost of reaching the goal state and the current heuristic cost of reaching the goal state.
 Resulting in the algorithm corresponding to the A* algorithm.
+
+### b
+
+If w is set to 1 the algorithm cannot guarantee that the solution is optimal.\
+If w is set to be lower than 1 the algorithm can guarantee that the solution is optimal and therefore admissible.
