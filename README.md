@@ -4,5 +4,5 @@ This repository contains the answers to the exercises and the assignments for th
 
 ## Table of contents
 
-- [Lecture 3 - Exercises](./assignment_1/README.md)
-  - [Assignment](./assignment_1/README.md#mandatory-assignment)
+- [Week 3 - Exercises](./week_3/exercises.md)
+  - [Assignment](./week_3/mandatory.md)
