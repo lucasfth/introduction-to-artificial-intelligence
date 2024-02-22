@@ -1,4 +1,4 @@
-# Mandatory assignment
+# Mandatory assignment Week 3
 
 Made by Christian Bank Lauridsen (chbl@itu.dk) and Lucas Frey Torres Hanson
 
