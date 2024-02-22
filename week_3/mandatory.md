@@ -1,6 +1,6 @@
 # Mandatory assignment Week 3
 
-Made by Christian Bank Lauridsen (chbl@itu.dk) and Lucas Frey Torres Hanson
+Made by Christian Bank Lauridsen [chbl@itu.dk](mailto:chbl@itu.dk) and Lucas Frey Torres Hanson [luha@itu.dk](mailto:luha@itu.dk)
 
 ## Part a
 
