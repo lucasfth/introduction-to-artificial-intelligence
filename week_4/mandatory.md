@@ -56,8 +56,6 @@ function CHANCE-VALUE(state, player) returns (utility, move) pair
 
 ### Part 2.a
 
-
-
 ``` mermaid
 flowchart TD
   max(0 0
@@ -79,9 +77,9 @@ flowchart TD
   0 0
   
   )
-  max0 -- 0.5 --> min00
-  max0 -- 0.5 --> min01
-  max0 -- 0.5 --> min02
+  max0 -- T --> min00
+  max0 -- H --> min01
+  max0 -- H --> min02
 
   min01(
   H 0
@@ -89,7 +87,7 @@ flowchart TD
   )
   min02(
   H 0
-  0 T
+  0 H
   )
   max00(
   H T
@@ -110,11 +108,11 @@ flowchart TD
   H H
   -1)
   
-  min00 -- 0.5 --> max00
-  min00 -- 0.5 --> max01
-  min00 -- 0.5 --> max02
-  max02 -- 0.5 --> min000
-  max02 -- 0.5 --> min001
+  min00 -- T --> max00
+  min00 -- H --> max01
+  min00 -- H --> max02
+  max02 -- T --> min000
+  max02 -- H --> min001
   
 
   style max1 fill:#006699,stroke:#333,stroke-width:2px;
@@ -140,9 +138,9 @@ flowchart TD
   0 0
   H H
   )
-  max1 -- 0.5 --> min10
-  max1 -- 0.5 --> min11
-  max1 -- 0.5 --> min12
+  max1 -- T --> min10
+  max1 -- H --> min11
+  max1 -- H --> min12
 
   max10(
   0 T
@@ -160,9 +158,9 @@ flowchart TD
   +1
   )
 
-  min10 -- 0.5 --> max10
-  min10 -- 0.5 --> max11
-  min10 -- 0.5 --> max12
+  min10 -- T --> max10
+  min10 -- H --> max11
+  min10 -- H --> max12
 
   max110(
   H T
@@ -174,8 +172,8 @@ flowchart TD
   H H 
   +1 
   )
-  min11 -- 0.5 --> max110
-  min11 -- 0.5 --> max111
+  min11 -- T --> max110
+  min11 -- H --> max111
 
   max120(
   0 T
@@ -187,8 +185,8 @@ flowchart TD
   H H
   +1
   )
-  min12 -- 0.5 --> max120
-  min12 -- 0.5 --> max121
+  min12 -- T --> max120
+  min12 -- H --> max121
 
   style max2 fill:#006699,stroke:#333,stroke-width:2px;
   style max200 fill:#006699,stroke:#333,stroke-width:2px;
@@ -209,9 +207,9 @@ flowchart TD
   H 0
   0 H)
 
-  max2 -- 0.5 --> min20
-  max2 -- 0.5 --> min21
-  max2 -- 0.5 --> min22
+  max2 -- T --> min20
+  max2 -- H --> min21
+  max2 -- H --> min22
   
   max200(
   0 T
@@ -224,9 +222,9 @@ flowchart TD
   max202(
   H T
   0 H)
-  min20 -- 0.5 --> max200
-  min20 -- 0.5 --> max201
-  min20 -- 0.5 --> max202
+  min20 -- T --> max200
+  min20 -- H --> max201
+  min20 -- H --> max202
 
   min2020(
   H T
@@ -236,8 +234,8 @@ flowchart TD
   H T
   H H
   -1)
-  max202 -- 0.5 --> min2020
-  max202 -- 0.5 --> min2021
+  max202 -- T --> min2020
+  max202 -- H --> min2021
 
   max220(
   H T
@@ -248,8 +246,8 @@ flowchart TD
   H H
   +1
   )
-  min22 -- 0.5 --> max220
-  min22 -- 0.5 --> max221
+  min22 -- T --> max220
+  min22 -- H --> max221
 
 
 ```
