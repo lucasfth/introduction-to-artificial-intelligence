@@ -65,7 +65,6 @@ flowchart TD
   max --> max0
   max --> max1
   max --> max2
-  style max fill:#006699,stroke:#333,stroke-width:2px;
   style max0 fill:#006699,stroke:#333,stroke-width:2px;
   style max00 fill:#006699,stroke:#333,stroke-width:2px;
   style max01 fill:#006699,stroke:#333,stroke-width:2px;
