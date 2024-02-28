@@ -60,6 +60,12 @@ function CHANCE-VALUE(state, player) returns (utility, move) pair
 
 ``` mermaid
 flowchart TD
+  max(0 0
+  0 0)
+  max --> max0
+  max --> max1
+  max --> max2
+  style max fill:#006699,stroke:#333,stroke-width:2px;
   style max0 fill:#006699,stroke:#333,stroke-width:2px;
   style max00 fill:#006699,stroke:#333,stroke-width:2px;
   style max01 fill:#006699,stroke:#333,stroke-width:2px;
