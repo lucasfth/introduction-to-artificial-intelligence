@@ -248,10 +248,7 @@ flowchart TD
   )
   min22 -- T --> max220
   min22 -- H --> max221
-
-
 ```
-
 
 ### Part 2.b
 
