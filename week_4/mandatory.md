@@ -6,7 +6,7 @@ Made by Christian Bank Lauridsen [chbl@itu.dk](mailto:chbl@itu.dk) and Lucas Fre
 
 ```pseudo
 function EXPECTIMINIMAX-SEARCH(state) returns an action 
-  value, move ← MAX-VALUE(state)
+  value, move ← MAX-VALUE(state)    //should call chance value
   return move
 
 function MAX-VALUE(state) returns a (utility, move) pair
@@ -14,7 +14,7 @@ function MAX-VALUE(state) returns a (utility, move) pair
     return UTILITY(state, MAX), null 
   v ← −∞
   for each a in ACTIONS(state) do
-      v2, a2 ← CHANCE-VALUE(RESULT(state, a), MIN) //next action
+      v2, a2 ← CHANCE-VALUE(RESULT(state, a), MIN) //next action //should not do this hmm...
       if v2 > v then
         v, move ← v2, a 
   return v, move
@@ -63,6 +63,7 @@ flowchart TD
   max --> max0
   max --> max1
   max --> max2
+  style max fill:#100099,stroke:#333,stroke-width:2px;
   style max0 fill:#006699,stroke:#333,stroke-width:2px;
   style max00 fill:#006699,stroke:#333,stroke-width:2px;
   style max01 fill:#006699,stroke:#333,stroke-width:2px;
@@ -84,10 +85,48 @@ flowchart TD
   H 0
   H 0
   )
+
+  min01 -- T --> max011(
+    H T
+    H 0
+    +1
+  )
+  style max011 fill:#006699,stroke:#333,stroke-width:2px;
+
+  min01 -- H --> max012(
+    H 0
+    H H
+  )
+  style max012 fill:#006699,stroke:#333,stroke-width:2px;
+
+  max012 -- T --> min01200(
+    H T
+    H H
+    -1
+    
+  )
+  max012 -- H --> min0121(
+    H 0
+    H H
+    0
+  )
+
   min02(
   H 0
   0 H
   )
+  min02 -- T --> max002(
+    H T
+    0 H
+    +1
+  )
+  style max002 fill:#006699,stroke:#333,stroke-width:2px;
+  min02 -- H --> max003(
+    H 0
+    H H
+    +1
+  )
+  style max003 fill:#006699,stroke:#333,stroke-width:2px;
   max00(
   H T
   0 0
@@ -102,7 +141,8 @@ flowchart TD
   H T
   0 H
   )
-  min000(H T
+  min000(
+  H T
   0 H
   0
   )
@@ -132,7 +172,7 @@ flowchart TD
   )
   min10(
   0 T
-  H 0 
+  H 0
   )
   min11(
   H 0
@@ -206,7 +246,34 @@ flowchart TD
   0 H)
   min21(
   0 0
-  H H)
+  H H
+  )
+
+  min21 -- T --> max2100(
+    0 T
+    H H
+    +1
+  )
+   style max2100 fill:#006699,stroke:#333,stroke-width:2px;
+
+  min21 -- H --> max2101(
+    H 0
+    H H
+  )
+   style max2101 fill:#006699,stroke:#333,stroke-width:2px;
+
+  max2101 -- T --> min21010(
+    H T
+    H H
+    -1
+  )
+
+  max2101 -- H --> min21011(
+    H 0
+    H H
+    0
+  )
+
   min22(
   H 0
   0 H)
@@ -259,5 +326,7 @@ flowchart TD
 ```
 
 ### Part 2.b
+
+
 
 ### Part 2.c
