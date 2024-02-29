@@ -75,7 +75,6 @@ flowchart TD
   min00(
   H T
   0 0
-  
   )
   max0 -- T --> min00
   max0 -- H --> min01
@@ -92,21 +91,25 @@ flowchart TD
   max00(
   H T
   0 0
-  -1)
+  0
+  )
   max01(
   H T
   H 0 
-  +1)
+  +1
+  )
   max02(
   H T
   0 H
   )
   min000(H T
   0 H
-  +1)
+  0
+  )
   min001(H T
   H H
-  -1)
+  -1
+  )
   
   min00 -- T --> max00
   min00 -- H --> max01
@@ -125,7 +128,8 @@ flowchart TD
   style max121 fill:#006699,stroke:#333,stroke-width:2px;
   max1(
   0 0
-  H 0)
+  H 0
+  )
   min10(
   0 T
   H 0 
@@ -145,7 +149,7 @@ flowchart TD
   max10(
   0 T
   H 0 
-  -1
+  0
   )
   max11(
   H T
@@ -214,11 +218,13 @@ flowchart TD
   max200(
   0 T
   0 H 
-  -1)
+  0
+  )
   max201(
   0 T
   H H
-  +1)
+  +1
+  )
   max202(
   H T
   0 H)
@@ -229,11 +235,13 @@ flowchart TD
   min2020(
   H T
   0 H
-  +1)
+  0
+  )
   min2021(
   H T
   H H
-  -1)
+  -1
+  )
   max202 -- T --> min2020
   max202 -- H --> min2021
 
