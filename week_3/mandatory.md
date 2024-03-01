@@ -30,5 +30,6 @@ Resulting in the algorithm corresponding to the A* algorithm.
 
 ## Part b
 
-If w is set to 1 the algorithm cannot guarantee that the solution is optimal.\
+If w is set to >=1 the algorithm cannot guarantee that the solution is optimal (is not admissible).\
+
 If w is set to be lower than 1 the algorithm can guarantee that the solution is optimal and therefore admissible.
