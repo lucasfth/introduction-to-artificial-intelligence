@@ -373,5 +373,5 @@ Top (or second topmost) layer:
 
 ### Part 2.c
 
-The expected minimax decision for Max would be to choose the middle node with the value of 0.75. 
-It would give him the best odds of winning the game. 
+The expected minimax decision for Max would be to choose the middle node with the value of 0.75.
+It would give him the best odds of winning the game.
