@@ -49,6 +49,8 @@ function CHANCE-VALUE(state, player) returns (utility, move) pair
 
 The below both shows the game tree and what each node would be evaluated to.
 
+<!-- ![minmax tree](./luha-gametree.png) -->
+
 ```mermaid
 flowchart TD
 s0(
