@@ -5,9 +5,49 @@ Worked together with Christian Bank Lauridsen [chbl@itu.dk](mailto:chbl@itu.dk).
 
 ## Part 1
 
+```pseudo
+function EXPECTIMINIMAX-SEARCH(state) returns an action 
+  value, move ← MAX-VALUE(state)
+  return move
+
+function MAX-VALUE(state) returns a (utility, move) pair
+  if IS-TERMINAL(state) then 
+    return UTILITY(state, MAX), null
+  v ← −∞
+  for each a in ACTIONS(state) do
+      v2, a2 ← CHANCE-VALUE(RESULT(state, a), MAX) //next action
+      if v2 > v then
+        v, move ← v2, a 
+  return v, move
+
+function MIN-VALUE(state) returns a (utility, move) pair
+  if IS-TERMINAL(state) then 
+    return UTILITY(state, MIN), null
+  v ← +∞
+  for each a in ACTIONS(state) do
+    v2, a2 ← CHANCE-VALUE(RESULT(state, a), MIN) //next action
+    if v2 < v then
+        v, move ← v2, a
+  return v, move
+
+function CHANCE-VALUE(state, player) returns (utility, move) pair
+  sum ← 0
+  for each a in ACTIONS(state) do
+    // Will for each action simulate the next players action
+    // to calculate the expected value of the action
+    if player is Max then
+      v, a2 ← MIN-VALUE(RESULT(state, a))
+    else
+      v, a2 ← MAX-VALUE(RESULT(state, a))
+    sum ← sum + P(a)*v
+  return sum, null
+```
+
 ## Part 2
 
 ### Part 2.a and 2.b
+
+The below both shows the game tree and what each node would be evaluated to.
 
 ```mermaid
 flowchart TD
