@@ -327,6 +327,48 @@ flowchart TD
 
 ### Part 2.b
 
+The following expected values for each node begin from the bottom left node (except the lowest layer since it already has values) and end at the three top nodes.
 
+Second lowest layer:
+
+- 0
+- +1
+- (0.5*0 + 0.5*1) = 0.5
+- +1
+- (0.5*(-1) + 0.5*0) = -0.5
+- +1
+- +1
+- 0
+- +1
+- +1
+- +1
+- +1
+- +1
+- +1
+- 0
+- +1
+- (0.5*0 + 0.5*(-1)) = -0.5
+- +1
+- +1
+- +1
+- (0.5*(-1) + 0.5*0) = -0.5
+
+Third lowest layer:
+
+- (0.5*0 + 0.5*0.5) = 0.25
+- (0.5*1 + 0.5*(-0.5)) = 0.25
+- (0.5*1 + 0.5*1) = 1
+- (0.5*0 + 0.5*1) = 0.5
+- (0.5*1 + 0.5*1) = 1
+- (0.5*1 + 0.5*1) = 1
+- (0.5*0 + 0.5*(-0.5)) = 0.25
+- (0.5*1 + 0.5*1) = 1
+- (0.5*1 + 0.5*(-0.5)) = -0.5
+
+Top (or second topmost) layer:
+
+- (0.5*0.25 + 0.5*1) = 0.625
+- (0.5*0.5 + 0.5*1) = 0.75
+- (0.5*0.25 + 0.5*1) = 0.625
 
 ### Part 2.c
