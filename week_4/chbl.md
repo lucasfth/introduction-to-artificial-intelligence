@@ -45,15 +45,19 @@ function CHANCE-VALUE(state, player) returns (utility, move) pair
 
 ## Part 2
 
+The blue color nodes in the tree MAXs  actions.\
+The non blue color nodes in the tree are MINs actions.\
+The dark blue color node is the initial state of the game.
+
 ### Part 2.a
 
 ``` mermaid
 flowchart TD
   max(0 0
   0 0)
-  max --> max0
-  max --> max1
-  max --> max2
+  max -- H --> max0
+  max -- H --> max1
+  max -- H --> max2
   style max fill:#100099,stroke:#333,stroke-width:2px;
   style max0 fill:#006699,stroke:#333,stroke-width:2px;
   style max00 fill:#006699,stroke:#333,stroke-width:2px;
@@ -340,7 +344,7 @@ flowchart TD
 
 ### Part 2.b
 
-The following nodes should be read from the left to right in the tree. The EXPECTIMINIMAX values can also be seen in the drawing.
+The following nodes should be read from the left to right in the tree. The EXPECTIMINIMAX values can also be seen in the drawing of the game tree.
 The following will show the calculations for the EXPECTIMINIMAX value for each node.
 
 The values of the bottom nodes in the tree:

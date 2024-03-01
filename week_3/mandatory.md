@@ -31,4 +31,15 @@ Resulting in the algorithm corresponding to the A* algorithm.
 ## Part b
 
 If w >=1 the algorithm cannot guarantee that the solution is optimal (is not admissible).\
-If w <= 0.5 the algorithm can guarantee that the solution is optimal and therefore admissible.
+If 0 < w < 1 the algorithm we still cannot guarantee that the solution is optimal. 
+Optimality gives most optimal path cost, but with w = 0.75 the equation would be
+
+- f(n) = 0.25g(n) + 0.75h(n)
+
+We don't want the weihgt of the heuristic cost (h(n)) to be larger than the path cost (g(n)), because it would intefere with the path cost in a bad way. 
+
+But if 0 < w < 0.5 then the algorithm will guarantee that the solution is optimal, because the heuristic cost would not intefere with the path cost in a bad way.
+
+- f(n) = 0.5*g(n) + 0.5*h(n)
+
+Here weight of the heuristic cost is not greater than the weight of the path cost.
