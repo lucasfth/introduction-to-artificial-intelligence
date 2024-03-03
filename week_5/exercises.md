@@ -21,3 +21,5 @@ U(s)=\max_{\pi(S') \in A(s)} \sum_{s'}P(s'|s,\pi(S'))[R(s,\pi(S'),s')+\gamma U(s
 $$
 
 ## Exercise 2 - Grid World
+
+### 2.a
