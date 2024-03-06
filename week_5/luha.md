@@ -35,4 +35,14 @@ $$
 
 State | Input | Next state(s')
 
+```mermaid
+flowchart TD
+    a(Rentlocation a) --> renta(3 cars are rented)
+    b(Rentlocation b) --> rentb(4 cars are rented)
+    renta -- Give cars minus 2 dollars --> b
+    renta -- 3 cars returned not yet available --> a
+    rentb -- 2 cars returned not yet available --> b
+
+```
+
 ## Part c
