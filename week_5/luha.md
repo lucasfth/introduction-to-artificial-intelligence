@@ -8,7 +8,7 @@ Worked together with Christian Bank Lauridsen [chbl@itu.dk](mailto:chbl@itu.dk).
 Set of states $S$:
 
 $$
-S: \{(a,b) | 0 ≤ a ≤ 20, 0 ≤ b ≤ 20\}
+S: \{(loc_a,loc_b) | 0 ≤ a ≤ 20, 0 ≤ b ≤ 20\}
 $$
 
 $a$ and $b$ are the two rental locations and contains the number of cars each location has.
@@ -16,7 +16,7 @@ $a$ and $b$ are the two rental locations and contains the number of cars each lo
 Action function $A$:
 
 $$
-A(s): \{m_a, m_b | 0 ≤ m_a ≤ a, 0 ≤ m_b ≤ b\}
+A(s): \{move_a, move_b | 0 ≤ m_a ≤ a, 0 ≤ m_b ≤ b\}
 $$
 
 Where $m_a$ means to move a car from location $b$ to $a$, $m_b$ means to move a car from location $a$ to $b$.
@@ -25,24 +25,16 @@ Where $m_a$ means to move a car from location $b$ to $a$, $m_b$ means to move a 
 
 Transition function $P$:
 
-$$
-a = a - 3 + 3 + m_b = a + m_a
-$$
+Move from location a to b $\{loc_a-1_{car}, loc_b+1_{car}\}$
 
-$$
-b = b - 4 + 2 + m_a = b -2 + m_b
-$$
-
-State | Input | Next state(s')
+Move from location b to a $\{loc_b-1_{car}, loc_a+1_{car}\}$
 
 ```mermaid
-flowchart TD
-    a(Rentlocation a) --> renta(3 cars are rented)
-    b(Rentlocation b) --> rentb(4 cars are rented)
-    renta -- Give cars minus 2 dollars --> b
-    renta -- 3 cars returned not yet available --> a
-    rentb -- 2 cars returned not yet available --> b
-
+flowchart LR
+  a((location a)) -- -2$, +1 car --> b((location b))
+  a --> b
+  b --> a
+  b -- -2$, +1 car --> a
 ```
 
 ## Part c
