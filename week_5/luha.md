@@ -7,19 +7,23 @@ Worked together with Christian Bank Lauridsen [chbl@itu.dk](mailto:chbl@itu.dk).
 
 Set of states $S$:
 
-$$
+![alt text](./luha_math/states.png)
+
+<!-- $$
 S: \{(loc_a,loc_b) | 0 ≤ a ≤ 20, 0 ≤ b ≤ 20\}
-$$
+$$ -->
 
 $a$ and $b$ are the two rental locations and contains the number of cars each location has.
 
-Action function $A$:
+Action function A:
 
-$$
+![alt text](./luha_math/action_function.png)
+
+<!-- $$
 A(s): \{move_{ab}, move_{ba} | 0 ≤ m_{ab} ≤ loc_a, 0 ≤ m_{ba} ≤ loc_b\}
-$$
+$$ -->
 
-Where $move_{ab}$ means to move a car from location $a$ to $b$, $move_{ba}$ means to move a car from location b to $b$.
+Where `move_ab` means to move a car from location $a$ to $b$, $move_{ba}$ means to move a car from location b to $b$.
 
 ## Part b
 
@@ -31,21 +35,25 @@ Move from location a to b with some number of cars: $move_{ab}: \{loc_a-move_{ab
 
 Move from location b to a with some number of cars: $move_{ba}: \{loc_b-move_{ba}, loc_a+move_{ba}\}$
 
-$$
+![alt text](./luha_math/transition_function.png)
+
+<!-- $$
 P(s'|s,a) = \begin{cases} 
   s' = loc_a-move_{ab}, loc_b+move_{ab} \space if\space a = move_{ab}\\
   s' = loc_b-move_{ba}, loc_a+move_{ba} \space if\space a = move_{ba}
 \end{cases}
-$$
+$$ -->
 
 ### Reward function $R$
 
 To move a car from location a to b, and vice versa, it costs 2$.\
 Therefore, the reward function is:
 
-$$
+![alt text](./luha_math/temp_reward_function.png)
+
+<!-- $$
 R_{move}(s\{loc_a|loc_b\},a\{m_1|m_2\},s'\{loc_b|loc_a\}) = -2\$
-$$
+$$ -->
 
 Furthermore at the start of the day location a gets three rented cars and b gets four cars rented, if the amount is available and each car gives 10$.\
 Then at the end of the day location a gets three cars returned to location a and location b gets two cars returned.
@@ -54,11 +62,12 @@ Lets define the amount of available cars at location a as $loc_a'$ and at locati
 
 All this results in a reward function as below:
 
+![alt text](./luha_math/reward_function.png)
 
-$$
+<!-- $$
 R((loc_a, loc_b), (move_{ab},move_{ba}), (loc_a',loc_b')) = \\
 (loc_a-loc_a')*10\$ + (loc_b-loc_b')*10\$ - (move_{ab}+move_{ba})*2\$
-$$
+$$ -->
 
 ## Part c
 
