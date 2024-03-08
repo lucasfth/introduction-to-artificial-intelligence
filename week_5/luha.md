@@ -29,7 +29,7 @@ Where `move_ab` means to move a car from location `a` to `b`, `move_ba` means to
 
 <!-- had a diagram which is the rent-luha.md -->
 
-### Transition function $P$
+### Transition function `P`
 
 Move from location a to b with some number of cars: `move_ab: {loc_a - move_ab, loc_b + move_ab}`
 
@@ -44,7 +44,7 @@ P(s'|s,a) = \begin{cases}
 \end{cases}
 $$ -->
 
-### Reward function $R$
+### Reward function `R`
 
 To move a car from location a to b, and vice versa, it costs 2$.\
 Therefore, the reward function is:
