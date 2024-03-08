@@ -5,7 +5,7 @@ Worked together with Christian Bank Lauridsen [chbl@itu.dk](mailto:chbl@itu.dk).
 
 ## Part a
 
-Set of states $S$:
+Set of states `S`:
 
 ![alt text](./luha_math/states.png)
 
@@ -13,7 +13,7 @@ Set of states $S$:
 S: \{(loc_a,loc_b) | 0 ≤ a ≤ 20, 0 ≤ b ≤ 20\}
 $$ -->
 
-$a$ and $b$ are the two rental locations and contains the number of cars each location has.
+a and b are the two rental locations and contains the number of cars each location has.
 
 Action function A:
 
