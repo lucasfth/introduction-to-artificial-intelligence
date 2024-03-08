@@ -54,6 +54,7 @@ Lets define the amount of available cars at location a as $loc_a'$ and at locati
 
 All this results in a reward function as below:
 
+
 $$
 R((loc_a, loc_b), (move_{ab},move_{ba}), (loc_a',loc_b')) = \\
 (loc_a-loc_a')*10\$ + (loc_b-loc_b')*10\$ - (move_{ab}+move_{ba})*2\$
