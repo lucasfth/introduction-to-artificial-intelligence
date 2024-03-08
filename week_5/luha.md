@@ -5,7 +5,7 @@ Worked together with Christian Bank Lauridsen [chbl@itu.dk](mailto:chbl@itu.dk).
 
 ## Part a
 
-Set of states $S$:
+Set of states `S`:
 
 ![alt text](./luha_math/states.png)
 
@@ -13,7 +13,7 @@ Set of states $S$:
 S: \{(loc_a,loc_b) | 0 ≤ a ≤ 20, 0 ≤ b ≤ 20\}
 $$ -->
 
-$a$ and $b$ are the two rental locations and contains the number of cars each location has.
+a and b are the two rental locations and contains the number of cars each location has.
 
 Action function A:
 
@@ -23,17 +23,17 @@ Action function A:
 A(s): \{move_{ab}, move_{ba} | 0 ≤ m_{ab} ≤ loc_a, 0 ≤ m_{ba} ≤ loc_b\}
 $$ -->
 
-Where `move_ab` means to move a car from location $a$ to $b$, $move_{ba}$ means to move a car from location b to $b$.
+Where `move_ab` means to move a car from location `a` to `b`, `move_ba` means to move a car from location b to `b`.
 
 ## Part b
 
 <!-- had a diagram which is the rent-luha.md -->
 
-### Transition function $P$
+### Transition function `P`
 
-Move from location a to b with some number of cars: $move_{ab}: \{loc_a-move_{ab}, loc_b+move_{ab}\}$
+Move from location a to b with some number of cars: `move_ab: {loc_a - move_ab, loc_b + move_ab}`
 
-Move from location b to a with some number of cars: $move_{ba}: \{loc_b-move_{ba}, loc_a+move_{ba}\}$
+Move from location b to a with some number of cars: `move_ba: {loc_b - move_ba, loc_a + move_ba}`
 
 ![alt text](./luha_math/transition_function.png)
 
@@ -44,7 +44,7 @@ P(s'|s,a) = \begin{cases}
 \end{cases}
 $$ -->
 
-### Reward function $R$
+### Reward function `R`
 
 To move a car from location a to b, and vice versa, it costs 2$.\
 Therefore, the reward function is:
@@ -58,7 +58,7 @@ $$ -->
 Furthermore at the start of the day location a gets three rented cars and b gets four cars rented, if the amount is available and each car gives 10$.\
 Then at the end of the day location a gets three cars returned to location a and location b gets two cars returned.
 
-Lets define the amount of available cars at location a as $loc_a'$ and at location b as $loc_b'$.
+Lets define the amount of available cars at location a as `loc_a'` and at location b as `loc_b'`.
 
 All this results in a reward function as below:
 
@@ -83,4 +83,4 @@ The problem with this is that Jack would have a big unnecessary buffer at locati
 The best alternative would be to move all cars except three cars from location a to b (to ensure that there can be rented three and three can be the buffer for when they are returned), and then keep running location a.
 Though we can only move two cars per night due to location b only being able to handle 20 cars and only loosing two cars per day.
 This would shortly give a boost in revenue as location b can keep running for a while longer, and location a would still be able to keep running indefinitely.
-Though it would only make a difference of $(170\$-34\$)=136\$$ by moving the 17 cars.
+Though it would only make a difference of `(170$-34$)=136$` by moving the 17 cars.
