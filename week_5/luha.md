@@ -16,36 +16,26 @@ $a$ and $b$ are the two rental locations and contains the number of cars each lo
 Action function $A$:
 
 $$
-A(s): \{move_{ab}, move_{ba} | 0 ≤ m_a ≤ a, 0 ≤ m_b ≤ b\}
+A(s): \{move_{ab}, move_{ba} | 0 ≤ m_{ab} ≤ loc_a, 0 ≤ m_{ba} ≤ loc_b\}
 $$
 
 Where $move_{ab}$ means to move a car from location $a$ to $b$, $move_{ba}$ means to move a car from location b to $b$.
 
 ## Part b
 
-```mermaid
-flowchart TD
-  ren((rent)) -- -3 if possible cars from loc_a, +10$ per rented car\n-4 if possible cars from loc_b, +10$ per rented car --> ret((return))
-  ret -- +3 cars to loc_a\n+2 cars to loc_b --> move
-  move --> ren
-
-  subgraph move
-    direction LR
-    a((location a)) -- -2$, +1 car --> b((location b))
-    a --> b
-    b --> a
-    b -- -2$, +1 car --> a
-  end
-```
+<!-- had a diagram which is the rent-luha.md -->
 
 ### Transition function $P$
 
-Move from location a to b: $move_{ab}: \{loc_a-1_{car}, loc_b+1_{car}\}$
+Move from location a to b with some number of cars: $move_{ab}: \{loc_a-move_{ab}, loc_b+move_{ab}\}$
 
-Move from location b to a: $move_{ba}: \{loc_b-1_{car}, loc_a+1_{car}\}$
+Move from location b to a with some number of cars: $move_{ba}: \{loc_b-move_{ba}, loc_a+move_{ba}\}$
 
 $$
-P(s\{loc_a|loc_b\}|s'\{loc_b|loc_a\},a\{move_{ab}|move_{ba}\})
+P(s'|s,a) = \begin{cases} 
+  s' = loc_a-move_{ab}, loc_b+move_{ab} \space if\space a = move_{ab}\\
+  s' = loc_b-move_{ba}, loc_a+move_{ba} \space if\space a = move_{ba}
+\end{cases}
 $$
 
 ### Reward function $R$
@@ -60,12 +50,13 @@ $$
 Furthermore at the start of the day location a gets three rented cars and b gets four cars rented, if the amount is available and each car gives 10$.\
 Then at the end of the day location a gets three cars returned to location a and location b gets two cars returned.
 
-$$
-R_{loc_a}(s\{loc_a\},+10\$\space per\space car\space available\space (max\space two))
-$$
+Lets define the amount of available cars at location a as $loc_a'$ and at location b as $loc_b'$.
+
+All this results in a reward function as below:
 
 $$
-R_{loc_b}(s\{loc_b\},+10\$\space per\space car\space available\space (max\space four))
+R((loc_a, loc_b), (move_{ab},move_{ba}), (loc_a',loc_b')) = \\
+(loc_a-loc_a')*10\$ + (loc_b-loc_b')*10\$ - (move_{ab}+move_{ba})*2\$
 $$
 
 ## Part c
