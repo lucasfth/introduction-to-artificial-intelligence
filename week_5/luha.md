@@ -24,11 +24,18 @@ Where $move_{ab}$ means to move a car from location $a$ to $b$, $move_{ba}$ mean
 ## Part b
 
 ```mermaid
-flowchart LR
-  a((location a)) -- -2$, +1 car --> b((location b))
-  a --> b
-  b --> a
-  b -- -2$, +1 car --> a
+flowchart TD
+  ren((rent)) -- -3 if possible cars from loc_a, +10$ per rented car\n-4 if possible cars from loc_b, +10$ per rented car --> ret((return))
+  ret -- +3 cars to loc_a\n+2 cars to loc_b --> move
+  move --> ren
+
+  subgraph move
+    direction LR
+    a((location a)) -- -2$, +1 car --> b((location b))
+    a --> b
+    b --> a
+    b -- -2$, +1 car --> a
+  end
 ```
 
 ### Transition function $P$
@@ -50,10 +57,15 @@ $$
 R_{move}(s\{loc_a|loc_b\},a\{m_1|m_2\},s'\{loc_b|loc_a\}) = -2\$
 $$
 
-Furthermore, location a gets three rented cars per day and get three cars returned, and location b gets four rented and two returned, which can first be used the next day.
+Furthermore at the start of the day location a gets three rented cars and b gets four cars rented, if the amount is available and each car gives 10$.\
+Then at the end of the day location a gets three cars returned to location a and location b gets two cars returned.
 
 $$
-R_{loc}(s\{loc_a, loc_b\},a\{loc\})
+R_{loc_a}(s\{loc_a\},+10\$\space per\space car\space available\space (max\space two))
+$$
+
+$$
+R_{loc_b}(s\{loc_b\},+10\$\space per\space car\space available\space (max\space four))
 $$
 
 ## Part c
