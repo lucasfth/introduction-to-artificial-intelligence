@@ -1,5 +1,10 @@
 # strategy
 
+## Frontier
+
+A good strategy is to maximize the number of interior disks, and minimizing the number of frontier disks.
+A frontier disk is a disk that touches the empty squares of the board, and interior disks does only have other occupied squares around them.
+
 ## Strategy for going for corners, edges, and center
 
 A good strategy for Othello is to lay in the corners first and then the edges.
