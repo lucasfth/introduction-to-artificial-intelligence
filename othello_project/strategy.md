@@ -19,4 +19,3 @@ Below is a heat map of where pieces should be laid, the red is highest priority,
 ## Strategy for going for captures
 
 It is also important to lay in positions where you can capture the opponents pieces, for this we can use `GameState.captureInDirection(Position p, int deltaX, int deltaY)`, which returns an int.
-
