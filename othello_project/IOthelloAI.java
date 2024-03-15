@@ -14,5 +14,4 @@ public interface IOthelloAI {
 	 * e.g. (-1, -1) if no moves are possible.
 	 */
 	public Position decideMove(GameState s);
-	
 }

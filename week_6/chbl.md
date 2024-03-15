@@ -28,7 +28,7 @@ Since we found a problem with recursion, professor Smart's algorithm cannot answ
 
 To fix this problem we can add a list as an extra paremeter to the functions `PL-BC-ENTAILS(KB, A, [])` and `CHECK-ALL(KB, premise, [])`. This list will keep track of symbols that are currently being checked in the for loop. This make sure if there is another way to prove C without G, it will find it, otherwise it will prove that KB does not entail A.
 
-### The new extende pseudocode
+### The new extended pseudocode
 
 ``` pseudocode
 function PL-BC-ENTAILS(KB, q, currentlyChecked) returns true or false
@@ -39,9 +39,11 @@ function PL-BC-ENTAILS(KB, q, currentlyChecked) returns true or false
    if q is known to be true in KB then return true
    add q to currentlyChecked
       for each clause c in KB where q is in c.CONCLUSION do
-         if CHECK-ALL(KB, c.PREMISE, currentlyChecked) then return true
-         remove q from currentlyChecked
-         return false
+         if CHECK-ALL(KB, c.PREMISE, currentlyChecked) then 
+            remove q from currentlyChecked
+            return true
+         else 
+            return false
 
 function CHECK-ALL(KB, premise, currentlyChecked) returns true or false
 
