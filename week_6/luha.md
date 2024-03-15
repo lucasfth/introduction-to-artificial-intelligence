@@ -6,7 +6,7 @@ Worked together with Christian Bank Lauridsen [chbl@itu.dk](mailto:chbl@itu.dk).
 ## Part 1
 
 Just to summarize the differences.
-Backward chaining uses depth-first search, while forward chaining uses breadth-first search.\
+Backward chaining uses depth-first search, while forward chaining uses breadth-first search.
 
 But backward chaining is often more efficient when answering specific questions (example given by the book was "Where are my keys"), due to only exploring relevant facts of the knowledge base.
 
