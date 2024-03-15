@@ -1,5 +1,11 @@
 # strategy
 
+## The way to go for now
+
+Go to each of the next game states to see in which one you will win.
+Therefore some minimax algorithm is needed.\
+Furthermore later we need to implement some alpha-beta pruning to make the algorithm more efficient.
+
 ## Frontier
 
 A good strategy is to maximize the number of interior disks, and minimizing the number of frontier disks.
