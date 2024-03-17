@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LucasAI implements IOthelloAI{
-    int MAX_DEPTH = 4;
+    int MAX_DEPTH = 6;
 
     @Override
     public Position decideMove(GameState s) {
@@ -32,27 +32,6 @@ public class LucasAI implements IOthelloAI{
             }
         }
         return best.pos;
-
-        // for(Position p : s.legalMoves()) {
-        //     if (isBlackTurn(s)) {
-        //         best 
-        //         GameState ns = createNewState(s, p);
-        //         Tuple call = minValue(ns, 0, p);
-        //         if (call.val > best.val) {
-        //             best.val = call.val;
-        //             best.pos = p;
-        //         }
-        //     } else {
-        //         GameState ns = createNewState(s, p);
-        //         Tuple call = maxValue(ns, 0, p);
-        //         if (call.val < best.val) {
-        //             best.val = call.val;
-        //             best.pos = p;
-        //         }
-        //     }
-        // }
-        // return best.pos;
-        
     }
 
     private Tuple maxValue(GameState s, int depth, Position p) {
