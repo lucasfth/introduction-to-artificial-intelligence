@@ -29,7 +29,8 @@ public class OurAI implements IOthelloAI {
 			System.out.println("Result from minimax: " + result.getValue() + " and pos: " + result.getPosition());
 			if (result.getValue() > bestMove) {
 				bestMove = result.getValue();
-				bestPosition = result.getPosition();
+				bestPosition.row = p.row;
+				bestPosition.col = p.col;
 				System.out.println("**************** Best position ****************\n" + bestPosition);
 			}
 			System.out.println("--- End of outloop iteration ---\n\n");
@@ -60,7 +61,7 @@ public class OurAI implements IOthelloAI {
 			if (depth == 2) {
 				System.out.println("\t\tReached max depth for: " + (isBlackTurn(ns) ? "black" : "white"));
 
-				Tuple<Position, Integer, Integer> ret = getBestDepthMove(s, ns);
+				Tuple<Position, Integer, Integer> ret = getBestDepthMove(s, ns, p);
 				System.out.println("\t\tWill return pos: " + p + " with winner: " + ret.getValue() + " and depth: " + depth);
 				return ret;
 			}
@@ -68,19 +69,19 @@ public class OurAI implements IOthelloAI {
 			// Call minimax recursively with mimicked game state
 			Tuple<Position, Integer, Integer> recursive = minimax(ns, depth);
 
-			System.out.println("\tMaxMove val:   " + maxMove.getValue());
-			System.out.println("\tMinMove val:   " + minMove.getValue());
-			System.out.println("\tRecursive val: " + recursive.getValue());
+			System.out.println("\tMaxMove val:   " + maxMove.getValue() + " and pos: " + maxMove.getPosition().col + ", " + maxMove.getPosition().row);
+			System.out.println("\tMinMove val:   " + minMove.getValue() + " and pos: " + minMove.getPosition().col + ", " + minMove.getPosition().row);
+			System.out.println("\tRecursive val: " + recursive.getValue() + " and pos: " + recursive.getPosition().col + ", " + recursive.getPosition().row);
 			System.out.println("\t" + (isBlackTurn(ns) ? "Black" : "White") + " turn");
 
 			if (maxMove.getValue() < recursive.getValue()  &&  isBlackTurn(ns)) {
-				maxMove = recursive;
+				maxMove.setValue(recursive.getValue());
 
 			} else if ((minMove.getValue() > recursive.getValue()) && !isBlackTurn(ns)){
-				minMove = recursive;
+				minMove.setValue(recursive.getValue());
 			}
 		}
-		if (isBlackTurn(s)){
+		if (!isBlackTurn(s)){
 			System.out.println("\tReturning MaxMove: " + maxMove.getValue());
 			return maxMove;
 		}
@@ -122,14 +123,14 @@ public class OurAI implements IOthelloAI {
 	 * @param ns is the next game state
 	 * @return the best move
 	 */
-	public Tuple<Position, Integer, Integer> getBestDepthMove(GameState s, GameState ns) {
+	public Tuple<Position, Integer, Integer> getBestDepthMove(GameState s, GameState ns, Position p) {
 		int[] nsTokens = ns.countTokens();
 		int[] sTokens = s.countTokens();
 
 		if (isBlackTurn(ns)){
-			return new Tuple<Position, Integer, Integer>(null, (nsTokens[0] > sTokens[0] ? nsTokens[0] : sTokens[0]), 0);
+			return new Tuple<Position, Integer, Integer>(p, (nsTokens[0] > sTokens[0] ? nsTokens[0] : sTokens[0]), 0);
 		} else {
-			return new Tuple<Position, Integer, Integer>(null, (nsTokens[1] < sTokens[1] ? nsTokens[1] : sTokens[1]), 0);
+			return new Tuple<Position, Integer, Integer>(p, (nsTokens[1] < sTokens[1] ? nsTokens[1] : sTokens[1]), 0);
 		}
 	}
 
