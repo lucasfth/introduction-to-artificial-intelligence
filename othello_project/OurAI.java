@@ -41,11 +41,19 @@ public class OurAI implements IOthelloAI {
 
 	public Tuple<Position, Integer, Integer> minimax(GameState s, Integer depth){
 		// Get all legal moves
+
+
 		ArrayList<Position> moves = s.legalMoves();
 		depth++;
 
+
+		if (moves.isEmpty())
+			return new Tuple<Position, Integer, Integer>(new Position(-1, -1), 0, depth);
+		
 		Tuple<Position, Integer, Integer> maxMove = new Tuple<Position, Integer, Integer>(moves.get(0), 0, depth);
 		Tuple<Position, Integer, Integer> minMove = new Tuple<Position, Integer, Integer>(moves.get(0), 0, depth);
+		
+		System.out.println("\t\t\t Line 50");
 
 		for (Position p: moves) {
 			int[][] newBoard = getNewBoard(s, p);
@@ -58,6 +66,7 @@ public class OurAI implements IOthelloAI {
 				return new Tuple<Position, Integer, Integer>(p, winner, depth);
 			}
 
+
 			if (depth == 2) {
 				System.out.println("\t\tReached max depth for: " + (isBlackTurn(ns) ? "black" : "white"));
 
@@ -66,13 +75,16 @@ public class OurAI implements IOthelloAI {
 				return ret;
 			}
 
+
 			// Call minimax recursively with mimicked game state
 			Tuple<Position, Integer, Integer> recursive = minimax(ns, depth);
+
 
 			System.out.println("\tMaxMove val:   " + maxMove.getValue() + " and pos: " + maxMove.getPosition().col + ", " + maxMove.getPosition().row);
 			System.out.println("\tMinMove val:   " + minMove.getValue() + " and pos: " + minMove.getPosition().col + ", " + minMove.getPosition().row);
 			System.out.println("\tRecursive val: " + recursive.getValue() + " and pos: " + recursive.getPosition().col + ", " + recursive.getPosition().row);
 			System.out.println("\t" + (isBlackTurn(ns) ? "Black" : "White") + " turn");
+
 
 			if (maxMove.getValue() < recursive.getValue()  &&  isBlackTurn(ns)) {
 				maxMove.setValue(recursive.getValue());
