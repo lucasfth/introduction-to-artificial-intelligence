@@ -2,17 +2,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LucasAI implements IOthelloAI{
-    int MAX_DEPTH = 6;
+    int MAX_DEPTH = 5;
 
     @Override
     public Position decideMove(GameState s) {
         Tuple best;
 
+        long timer = System.currentTimeMillis();
+
+        int alpha = Integer.MIN_VALUE, beta = Integer.MAX_VALUE;
+
         if (isBlackTurn(s)) {
             best = new Tuple (new Position(-1,-1), Integer.MIN_VALUE);
             for (Position p : s.legalMoves()) {
                 GameState ns = createNewState(s, p);
-                Tuple tmp = minValue(ns, 0, p);
+                Tuple tmp = minValue(ns, 0, p, alpha, beta);
 
                 if (tmp.val > best.val) {
                     best.val = tmp.val;
@@ -23,7 +27,7 @@ public class LucasAI implements IOthelloAI{
             best = new Tuple (new Position(-1,-1), Integer.MAX_VALUE);
             for (Position p : s.legalMoves()) {
                 GameState ns = createNewState(s, p);
-                Tuple tmp = maxValue(ns, 0, p);
+                Tuple tmp = maxValue(ns, 0, p, alpha, beta);
 
                 if (tmp.val < best.val) {
                     best.val = tmp.val;
@@ -31,10 +35,11 @@ public class LucasAI implements IOthelloAI{
                 }
             }
         }
+        System.out.println("Time: " + ((System.currentTimeMillis() - timer)/1000) + "s");
         return best.pos;
     }
 
-    private Tuple maxValue(GameState s, int depth, Position p) {
+    private Tuple maxValue(GameState s, int depth, Position p, int alpha, int beta) {
         ArrayList<Position> moves = s.legalMoves();
 
         if (moves.isEmpty() || depth == MAX_DEPTH) {
@@ -47,18 +52,20 @@ public class LucasAI implements IOthelloAI{
 
         for (Position np : moves) {
             GameState ns = createNewState(s, np);
-            Tuple res = minValue(ns, depth, np);
+            Tuple res = minValue(ns, depth, np, alpha, beta);
 
             if (res.val > best.val) {
+                alpha = Math.max(alpha, res.val);
                 best.val = res.val;
                 best.pos = np;
             }
+            if (res.val >= beta) {return best;}
         }
 
         return best;
     }
 
-    private Tuple minValue(GameState s, int depth, Position p) {
+    private Tuple minValue(GameState s, int depth, Position p, int alpha, int beta) {
         ArrayList<Position> moves = s.legalMoves();
 
         if (moves.isEmpty() || depth == MAX_DEPTH) {
@@ -71,12 +78,14 @@ public class LucasAI implements IOthelloAI{
 
         for (Position np : moves) {
             GameState ns = createNewState(s, np);
-            Tuple res = maxValue(ns, depth, np);
+            Tuple res = maxValue(ns, depth, np, alpha, beta);
 
             if (res.val < best.val) {
+                beta = Math.min(beta, res.val);
                 best.val = res.val;
                 best.pos = np;
             }
+            if (res.val <= alpha) {return best;}
         }
 
         return best;
@@ -93,27 +102,27 @@ public class LucasAI implements IOthelloAI{
     private int utility(GameState s, Position p, int depth) {
         int aux = 0;
 
-        System.out.println("Player: " + (isBlackTurn(s) ? "black" : "white"));
+        // System.out.println("Player: " + (isBlackTurn(s) ? "black" : "white"));
 
         if (isCorner(p, s)) {
             aux += 20;
-            System.out.println("\tGot corner");
+            // System.out.println("\tGot corner");
         }
         else if (isEdge(p, s)) {
             aux += 10;
-            System.out.println("\tGot edge");
+            // System.out.println("\tGot edge");
         }
 
         if (s.isFinished()) {
-            aux = Integer.MAX_VALUE;
-            System.out.println("\tGame finished");
+            aux = 300;
+            // System.out.println("\tGame finished");
         }
         else if (depth == MAX_DEPTH) {
             aux += countTokens(s);
-            System.out.println("\tMax depth");
+            // System.out.println("\tMax depth");
         }
 
-        System.out.println("\tUtility: " + (isBlackTurn(s) ? aux : -aux) + "\n");
+        // System.out.println("\tUtility: " + (isBlackTurn(s) ? aux : -aux) + "\n");
 
         // If black turn then return a positive value
         // else return a negative value
