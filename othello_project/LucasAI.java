@@ -46,7 +46,7 @@ public class LucasAI implements IOthelloAI{
     private Tuple maxValue(GameState s, int depth, Position p, int alpha, int beta, long timer) {
         ArrayList<Position> moves = s.legalMoves();
 
-        if (moves.isEmpty() || depth == MAX_DEPTH || System.currentTimeMillis() - timer > MAX_TIME) {                        // Terminal states
+        if (moves.isEmpty() || depth == MAX_DEPTH || System.currentTimeMillis() - timer > MAX_TIME) {   // Terminal states
             return new Tuple(p, utility(s, p, depth));
         }
 
@@ -59,11 +59,11 @@ public class LucasAI implements IOthelloAI{
             Tuple res = minValue(ns, depth, np, alpha, beta, timer);
 
             if (res.val > best.val) {
-                alpha = Math.max(alpha, res.val);                           // Part of alpha-beta pruning
+                alpha = Math.max(alpha, res.val);                                                       // Part of alpha-beta pruning
                 best.val = res.val;
                 best.pos = np;
             }
-            if (res.val >= beta) {return best;}                             // Part of alpha-beta pruning
+            if (res.val >= beta) {return best;}                                                         // Part of alpha-beta pruning
         }
 
         return best;
@@ -72,7 +72,7 @@ public class LucasAI implements IOthelloAI{
     private Tuple minValue(GameState s, int depth, Position p, int alpha, int beta, long timer) {
         ArrayList<Position> moves = s.legalMoves();
 
-        if (moves.isEmpty() || depth == MAX_DEPTH || System.currentTimeMillis() - timer > MAX_TIME) {                        // Terminal states
+        if (moves.isEmpty() || depth == MAX_DEPTH || System.currentTimeMillis() - timer > MAX_TIME) {   // Terminal states
             return new Tuple(p, utility(s, p, depth));
         }
 
@@ -85,11 +85,11 @@ public class LucasAI implements IOthelloAI{
             Tuple res = maxValue(ns, depth, np, alpha, beta, timer);
 
             if (res.val < best.val) {
-                beta = Math.min(beta, res.val);                             // Part of alpha-beta pruning
+                beta = Math.min(beta, res.val);                                                         // Part of alpha-beta pruning
                 best.val = res.val;
                 best.pos = np;
             }
-            if (res.val <= alpha) {return best;}                            // Part of alpha-beta pruning
+            if (res.val <= alpha) {return best;}                                                        // Part of alpha-beta pruning
         }
 
         return best;
