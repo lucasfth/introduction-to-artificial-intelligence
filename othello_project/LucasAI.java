@@ -106,8 +106,6 @@ public class LucasAI implements IOthelloAI{
     private int utility(GameState s, Position p, int depth) {
         int aux = 0;
 
-        // if (isCorner(p, s)) {aux += 20;}
-        // else if (isEdge(p, s)) {aux += 10;}
         aux += getCornerEdgeUtility(s, p);
 
         if (s.isFinished()) {aux += 300;}
@@ -123,6 +121,14 @@ public class LucasAI implements IOthelloAI{
         return s.getPlayerInTurn() == 1;
     }
 
+    /**
+     * Returns a reward for the position p based on its location on the board.
+     * If the position is a corner, the reward is 20.
+     * If the position is an edge, the reward is 10.
+     * @param s
+     * @param p
+     * @return
+     */
     private int getCornerEdgeUtility(GameState s, Position p) {
         int aux = 0;
 
@@ -134,27 +140,6 @@ public class LucasAI implements IOthelloAI{
         }
         return aux;
     }
-
-    /**
-     * 
-     * @param p
-     * @param s
-     * @return if the position is on the edge of the board
-     */
-    private boolean isEdge(Position p, GameState s) {
-		return ((p.row >= 2 && p.row <= s.getBoard().length - 3 && (p.col == 0 || (p.col == s.getBoard().length - 1)))
-		|| p.col >= 2 && p.col <= s.getBoard().length - 3 && (p.row == 0 || (p.row == s.getBoard().length - 1)));
-	}
-
-    /**
-     * 
-     * @param p
-     * @param s
-     * @return if the position is in the corner of the board
-     */
-    private boolean isCorner(Position p, GameState s) {
-		return ((p.row == 0 || p.row == s.getBoard().length - 1) && (p.col == 0 || p.col == s.getBoard().length - 1));
-	}
 
     public class Tuple {
         public Position pos;
