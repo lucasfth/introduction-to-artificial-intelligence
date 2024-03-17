@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LucasAI implements IOthelloAI{
-    int MAX_DEPTH = 5;
+    int MAX_DEPTH = 7;
 
     @Override
     public Position decideMove(GameState s) {
