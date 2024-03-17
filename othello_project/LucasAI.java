@@ -1,9 +1,10 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LucasAI implements IOthelloAI{
-    int MAX_DEPTH = 10;
+    int MAX_DEPTH = 8;
     int MAX_TIME = 9500;
+    int CORNER_REWARD = 20;
+    int EDGE_REWARD = 10;
 
     @Override
     public Position decideMove(GameState s) {
@@ -105,30 +106,12 @@ public class LucasAI implements IOthelloAI{
     private int utility(GameState s, Position p, int depth) {
         int aux = 0;
 
-        // System.out.println("Player: " + (isBlackTurn(s) ? "black" : "white"));
+        // if (isCorner(p, s)) {aux += 20;}
+        // else if (isEdge(p, s)) {aux += 10;}
+        aux += getCornerEdgeUtility(s, p);
 
-        if (isCorner(p, s)) {
-            aux += 20;
-            // System.out.println("\tGot corner");
-        }
-        else if (isEdge(p, s)) {
-            aux += 10;
-            // System.out.println("\tGot edge");
-        }
-
-        if (s.isFinished()) {
-            aux = 300;
-            // System.out.println("\tGame finished");
-        }
-        else if (depth == MAX_DEPTH) {
-            aux += countTokens(s);
-            // System.out.println("\tMax depth");
-        }
-
-        // System.out.println("\tUtility: " + (isBlackTurn(s) ? aux : -aux) + "\n");
-
-        // If black turn then return a positive value
-        // else return a negative value
+        if (s.isFinished()) {aux += 300;}
+        else if (depth == MAX_DEPTH) {aux += countTokens(s);}
         return isBlackTurn(s) ? aux : -aux;
     }
 
@@ -140,37 +123,17 @@ public class LucasAI implements IOthelloAI{
         return s.getPlayerInTurn() == 1;
     }
 
-    /**
-	 * Returns a new board with the move made
-	 * @param s is the current game state
-	 * @param p is the position of the move
-	 * @return new board
-	 */
-	public int[][] getNewBoard(GameState s, Position p) {
+    private int getCornerEdgeUtility(GameState s, Position p) {
+        int aux = 0;
 
-		int[][] originalBoard = s.getBoard();
-		int[][] newBoard = new int[originalBoard.length][originalBoard.length];     // originalBoard.length can be used in both dimensions since it's a square
-
-		for (int i = 0; i < originalBoard.length; i++) {
-			System.arraycopy(originalBoard[i], 0, newBoard[i], 0, originalBoard[i].length);
-		}
-
-		newBoard[p.row][p.col] = isBlackTurn(s) ? 1 : 2;
-
-		printBoard(newBoard);
-
-		return newBoard;
-	}
-
-    public void printBoard(int[][] board) {
-		StringBuilder sb = new StringBuilder();
-
-		for (int i = 0; i < board.length; i++) {
-			sb.append(Arrays.toString(board[i]) + "\n");
-		}
-
-		System.out.println(sb.toString());
-	}
+        if (p.col == 0 || p.col == s.getBoard().length - 1) {
+            if (p.row == 0 || p.row == s.getBoard().length - 1) {aux += CORNER_REWARD;}
+            else if (p.row >= 2 && p.row <= s.getBoard().length -3) {aux += EDGE_REWARD;}
+        } else if (p.col >= 2 && p.col <= s.getBoard().length - 3 && p.row == 0 || p.row == s.getBoard().length - 1) {
+            aux += EDGE_REWARD;
+        }
+        return aux;
+    }
 
     /**
      * 
