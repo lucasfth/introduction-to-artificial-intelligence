@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class OurAI implements IOthelloAI {
 
-	int MAX_DEPTH = 2;
+	int MAX_DEPTH = 3;
 
  	@Override
 	public Position decideMove(GameState s){
@@ -179,6 +179,25 @@ public class OurAI implements IOthelloAI {
 
 		System.out.println(sb.toString());
 	}
+
+	public boolean isCorner(Position p, GameState s) {
+		return ((p.row == 0 || p.row == s.getBoard().length - 1) && (p.col == 0 || p.col == s.getBoard().length - 1));
+	}
+
+	public boolean isEdge(Position p, GameState s) {
+		return ((p.row >= 2 && p.row <= s.getBoard().length - 3 && (p.col == 0 || (p.col == s.getBoard().length - 1)))
+		|| p.col >= 2 && p.col <= s.getBoard().length - 3 && (p.row == 0 || (p.row == s.getBoard().length - 1)));
+	}
+
+	// public boolean isBadMove(Position p, GameState s) {
+	// 	return (p.row == 1 && p.col == 1 ||
+	// 	p.row == 0 && p.col == 1 ||
+	// 	p.row == 1 && p.col == 0 || 
+	// 	p.row == 1 && p.col == s.getBoard().length-2 ||
+	// 	p.row == s.getBoard().length-2 && p.col == s.getBoard().length-2 ||
+			
+	// 	)
+	// }
 
 
 	public class Tuple<P, V, D> {
