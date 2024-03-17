@@ -3,10 +3,9 @@ import java.util.Arrays;
 
 public class OurAI implements IOthelloAI {
 
-   /**
-	 * Returns first legal move
-	 */
- @Override
+	int MAX_DEPTH = 2;
+
+ 	@Override
 	public Position decideMove(GameState s){
 		// System.out.println("Init board:\n" + Arrays.deepToString(s.getBoard()));
 		System.out.println("Init board:\n");
@@ -52,8 +51,6 @@ public class OurAI implements IOthelloAI {
 		
 		Tuple<Position, Integer, Integer> maxMove = new Tuple<Position, Integer, Integer>(moves.get(0), 0, depth);
 		Tuple<Position, Integer, Integer> minMove = new Tuple<Position, Integer, Integer>(moves.get(0), 0, depth);
-		
-		System.out.println("\t\t\t Line 50");
 
 		for (Position p: moves) {
 			int[][] newBoard = getNewBoard(s, p);
@@ -67,7 +64,7 @@ public class OurAI implements IOthelloAI {
 			}
 
 
-			if (depth == 2) {
+			if (depth == MAX_DEPTH) {
 				System.out.println("\t\tReached max depth for: " + (isBlackTurn(ns) ? "black" : "white"));
 
 				Tuple<Position, Integer, Integer> ret = getBestDepthMove(s, ns, p);
