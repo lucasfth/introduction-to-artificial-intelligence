@@ -42,7 +42,7 @@ public class LucasAI implements IOthelloAI{
     private Tuple maxValue(GameState s, int depth, Position p, int alpha, int beta) {
         ArrayList<Position> moves = s.legalMoves();
 
-        if (moves.isEmpty() || depth == MAX_DEPTH) {
+        if (moves.isEmpty() || depth == MAX_DEPTH) {                        // Terminal states
             return new Tuple(p, utility(s, p, depth));
         }
 
@@ -55,11 +55,11 @@ public class LucasAI implements IOthelloAI{
             Tuple res = minValue(ns, depth, np, alpha, beta);
 
             if (res.val > best.val) {
-                alpha = Math.max(alpha, res.val);
+                alpha = Math.max(alpha, res.val);                           // Part of alpha-beta pruning
                 best.val = res.val;
                 best.pos = np;
             }
-            if (res.val >= beta) {return best;}
+            if (res.val >= beta) {return best;}                             // Part of alpha-beta pruning
         }
 
         return best;
@@ -68,7 +68,7 @@ public class LucasAI implements IOthelloAI{
     private Tuple minValue(GameState s, int depth, Position p, int alpha, int beta) {
         ArrayList<Position> moves = s.legalMoves();
 
-        if (moves.isEmpty() || depth == MAX_DEPTH) {
+        if (moves.isEmpty() || depth == MAX_DEPTH) {                        // Terminal states
             return new Tuple(p, utility(s, p, depth));
         }
 
@@ -81,11 +81,11 @@ public class LucasAI implements IOthelloAI{
             Tuple res = maxValue(ns, depth, np, alpha, beta);
 
             if (res.val < best.val) {
-                beta = Math.min(beta, res.val);
+                beta = Math.min(beta, res.val);                             // Part of alpha-beta pruning
                 best.val = res.val;
                 best.pos = np;
             }
-            if (res.val <= alpha) {return best;}
+            if (res.val <= alpha) {return best;}                            // Part of alpha-beta pruning
         }
 
         return best;
@@ -146,7 +146,7 @@ public class LucasAI implements IOthelloAI{
 	public int[][] getNewBoard(GameState s, Position p) {
 
 		int[][] originalBoard = s.getBoard();
-		int[][] newBoard = new int[originalBoard.length][originalBoard.length]; // originalBoard.length can be used in both dimensions since it's a square
+		int[][] newBoard = new int[originalBoard.length][originalBoard.length];     // originalBoard.length can be used in both dimensions since it's a square
 
 		for (int i = 0; i < originalBoard.length; i++) {
 			System.arraycopy(originalBoard[i], 0, newBoard[i], 0, originalBoard[i].length);
