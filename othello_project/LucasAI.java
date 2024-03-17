@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LucasAI implements IOthelloAI{
-    int MAX_DEPTH = 7;
+    int MAX_DEPTH = 10;
+    int MAX_TIME = 9500;
 
     @Override
     public Position decideMove(GameState s) {
@@ -16,33 +17,35 @@ public class LucasAI implements IOthelloAI{
             best = new Tuple (new Position(-1,-1), Integer.MIN_VALUE);
             for (Position p : s.legalMoves()) {
                 GameState ns = createNewState(s, p);
-                Tuple tmp = minValue(ns, 0, p, alpha, beta);
+                Tuple tmp = minValue(ns, 0, p, alpha, beta, timer);
 
                 if (tmp.val > best.val) {
                     best.val = tmp.val;
                     best.pos = p;
                 }
+                if (System.currentTimeMillis() - timer > MAX_TIME) {break;}
             }
         } else {
             best = new Tuple (new Position(-1,-1), Integer.MAX_VALUE);
             for (Position p : s.legalMoves()) {
                 GameState ns = createNewState(s, p);
-                Tuple tmp = maxValue(ns, 0, p, alpha, beta);
+                Tuple tmp = maxValue(ns, 0, p, alpha, beta, timer);
 
                 if (tmp.val < best.val) {
                     best.val = tmp.val;
                     best.pos = p;
                 }
+                if (System.currentTimeMillis() - timer > MAX_TIME) {break;}
             }
         }
         System.out.println("Time: " + ((System.currentTimeMillis() - timer)/1000) + "s");
         return best.pos;
     }
 
-    private Tuple maxValue(GameState s, int depth, Position p, int alpha, int beta) {
+    private Tuple maxValue(GameState s, int depth, Position p, int alpha, int beta, long timer) {
         ArrayList<Position> moves = s.legalMoves();
 
-        if (moves.isEmpty() || depth == MAX_DEPTH) {                        // Terminal states
+        if (moves.isEmpty() || depth == MAX_DEPTH || System.currentTimeMillis() - timer > MAX_TIME) {                        // Terminal states
             return new Tuple(p, utility(s, p, depth));
         }
 
@@ -52,7 +55,7 @@ public class LucasAI implements IOthelloAI{
 
         for (Position np : moves) {
             GameState ns = createNewState(s, np);
-            Tuple res = minValue(ns, depth, np, alpha, beta);
+            Tuple res = minValue(ns, depth, np, alpha, beta, timer);
 
             if (res.val > best.val) {
                 alpha = Math.max(alpha, res.val);                           // Part of alpha-beta pruning
@@ -65,10 +68,10 @@ public class LucasAI implements IOthelloAI{
         return best;
     }
 
-    private Tuple minValue(GameState s, int depth, Position p, int alpha, int beta) {
+    private Tuple minValue(GameState s, int depth, Position p, int alpha, int beta, long timer) {
         ArrayList<Position> moves = s.legalMoves();
 
-        if (moves.isEmpty() || depth == MAX_DEPTH) {                        // Terminal states
+        if (moves.isEmpty() || depth == MAX_DEPTH || System.currentTimeMillis() - timer > MAX_TIME) {                        // Terminal states
             return new Tuple(p, utility(s, p, depth));
         }
 
@@ -78,7 +81,7 @@ public class LucasAI implements IOthelloAI{
 
         for (Position np : moves) {
             GameState ns = createNewState(s, np);
-            Tuple res = maxValue(ns, depth, np, alpha, beta);
+            Tuple res = maxValue(ns, depth, np, alpha, beta, timer);
 
             if (res.val < best.val) {
                 beta = Math.min(beta, res.val);                             // Part of alpha-beta pruning
