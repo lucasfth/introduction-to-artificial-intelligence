@@ -121,7 +121,7 @@ public class OthelloStatistic {
         sb.append(String.format("Black won: %d\nWhite won: %d\nDraws: %d\n", blackWon,whiteWon,draws));
         sb.append(String.format("The average number of white tokens at the end of a game was: %d\n", averageWhiteTokens));
         sb.append(String.format("The average number of black tokens at the end of a game was: %d\n", averageBlackTokens));
-        sb.append(String.format("The average time it took for a search was: %d\n", (ai2.getElapsedTime()/ai2.getLaps())));
+        sb.append(String.format("The average time it took for a search was: %d\n", (ai2.getTotalTime()/ai2.getLaps())));
         sb.append(String.format("The maximum time it took for a search was: %d\n", ai2.getMaxTime()));
 
 
