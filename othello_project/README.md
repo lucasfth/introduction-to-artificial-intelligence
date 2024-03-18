@@ -20,7 +20,7 @@ Furthermore, you can specify the board size, by adding an int at the end of the 
 java Othello OurAI DumAI 6
 ```
 
-This will play the game on a 6*6 board while the default will be 8*8.
+This will play the game on a 6\*6 board while the default will be 8*8.
 
 ## Run statistics
 
