@@ -17,6 +17,9 @@ public class LucasAI implements IOthelloAI{
 
     public LucasAI(int randomSeed) {
         MAX_TIME += randomSeed;
+        elapsedTime = 0;
+        maxTime = 0;
+        laps = 0;
     }
 
     @Override
