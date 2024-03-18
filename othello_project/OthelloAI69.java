@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class OthelloAI69 implements IOthelloAI{
     int MAX_DEPTH = 8;
-    int MAX_TIME = 9500;
+    int MAX_TIME = 10000;
     int CORNER_REWARD = 20;
     int EDGE_REWARD = 10;
     long elapsedTime;
