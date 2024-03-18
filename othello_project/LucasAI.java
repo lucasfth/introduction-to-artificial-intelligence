@@ -5,12 +5,21 @@ public class LucasAI implements IOthelloAI{
     int MAX_TIME = 9500;
     int CORNER_REWARD = 20;
     int EDGE_REWARD = 10;
+    long elapsedTime;
+    long maxTime;
+    int laps;
+
+    public LucasAI() {
+        elapsedTime = 0;
+        maxTime = 0;
+        laps = 0;
+    }
 
     @Override
     public Position decideMove(GameState s) {
+        long timer = System.currentTimeMillis();
         Tuple best;
 
-        long timer = System.currentTimeMillis();
 
         int alpha = Integer.MIN_VALUE, beta = Integer.MAX_VALUE;
 
@@ -39,7 +48,11 @@ public class LucasAI implements IOthelloAI{
                 if (System.currentTimeMillis() - timer > MAX_TIME) {break;}
             }
         }
-        System.out.println("Time: " + ((System.currentTimeMillis() - timer)/1000) + "s");
+        // System.out.println("Time: " + ((System.currentTimeMillis() - timer)/1000) + "s");
+        long time = System.currentTimeMillis() - timer;
+        maxTime = Math.max(maxTime, time);
+        elapsedTime += time;
+        laps++;
         return best.pos;
     }
 
@@ -140,6 +153,10 @@ public class LucasAI implements IOthelloAI{
         }
         return aux;
     }
+
+    public long getElapsedTime() {return elapsedTime;}
+    public long getMaxTime() {return maxTime;}
+    public int getLaps() {return laps;}
 
     public class Tuple {
         public Position pos;
