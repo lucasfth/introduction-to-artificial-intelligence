@@ -16,19 +16,27 @@ public class OthelloStatistic {
 
         List<Future<String>> futures = new ArrayList<>();
 
+        // Loading spinner variables
         AtomicBoolean isRunning = new AtomicBoolean(true);
-        new Thread(() -> {
-            String[] spinner = new String[] { "|", "/", "-", "\\" };
+        String loadingMessage = "Running games... ";
+        String[] spinner = new String[] { "⢿", "⣻", "⣽", "⣾", "⣷", "⣯", "⣟", "⡿" };
+        int spinnerLength = spinner[0].length();
+
+        Thread spinnerThread = new Thread(() -> { // Create a new thread for the spinner
             int i = 0;
             while (isRunning.get()) {
-                System.out.print("\r" + spinner[i++ % spinner.length]);
+                System.out.print("\r" + loadingMessage + spinner[i++ % spinner.length]);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
             }
-        }).start();
+            // Clear the loading string
+            System.out.print("\r" + " ".repeat(loadingMessage.length() + spinnerLength) + "\r");
+        });
+
+        spinnerThread.start(); // Start the spinner thread
 
         //To disable iterative simulations from depth 1 to aiDepth, comment this for loop out
         for (int i = 0; i < iterations; i++) {
@@ -39,7 +47,12 @@ public class OthelloStatistic {
         while (!executor.isTerminated()) {
         }
 
-        isRunning.set(false);
+        isRunning.set(false); // Stop the spinner thread
+        try {
+            spinnerThread.join(); // Wait for the spinner thread to finish
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         for (int i = 0; i < iterations; i++) {
             try {
