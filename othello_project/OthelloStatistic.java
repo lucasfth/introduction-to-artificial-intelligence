@@ -1,7 +1,9 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * This class is a statistical tool we used for experimenting with different settings,
@@ -10,22 +12,53 @@ import java.io.PrintWriter;
 public class OthelloStatistic {
     public static void main(String[] args) {
         int iterations = Integer.parseInt(args[0]);
+        ExecutorService executor = Executors.newFixedThreadPool(iterations);
+
+        List<Future<String>> futures = new ArrayList<>();
+
+        AtomicBoolean isRunning = new AtomicBoolean(true);
+        new Thread(() -> {
+            String[] spinner = new String[] { "|", "/", "-", "\\" };
+            int i = 0;
+            while (isRunning.get()) {
+                System.out.print("\r" + spinner[i++ % spinner.length]);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }).start();
 
         //To disable iterative simulations from depth 1 to aiDepth, comment this for loop out
         for (int i = 0; i < iterations; i++) {
-            playGames();
+            futures.add(executor.submit(() -> OthelloStatistic.playGames()));
         }
+
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+
+        isRunning.set(false);
+
+        for (int i = 0; i < iterations; i++) {
+            try {
+                System.out.println("Game " + i + " -------------------");
+                System.out.println(futures.get(i).get());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("Finished all threads");
         
         // And remove the comment below
         // playGames();
         
     }
 
-    private static void playGames() {
+    private static String playGames() {
         int size = 8;				        // Number of rows and columns on the board
-        long elapsedTime = 0;
-        long maxTime = 0;
-        int laps = 0;
         IOthelloAI ai1 = new DumAI();	                    // The AI for player 1
         LucasAI ai2 = new LucasAI();			// The AI for player 2
         int numberOfGames = 1;            // Number of games to be simulated
@@ -34,7 +67,6 @@ public class OthelloStatistic {
         int draws = 0;                      // Counter for draws
         int averageWhiteTokens = 0;
         int averageBlackTokens = 0;
-        boolean writeToFile = false;        // Set to true if you want to write to ./statistics/Statistics.txt
 
         for (int i = 0; i < numberOfGames; i++) {
             GameState state = new GameState(size, 1);
@@ -70,28 +102,14 @@ public class OthelloStatistic {
 
 
         // Handles printing and file writing
-        if(!writeToFile) {
-            System.out.printf("---------\nBlack won: %d\nWhite won: %d\nDraws: %d\n", blackWon,whiteWon,draws);
-            System.out.printf("The average number of white tokens at the end of a game was: %d\n", averageWhiteTokens);
-            System.out.printf("The average number of black tokens at the end of a game was: %d\n", averageBlackTokens);
-            System.out.printf("The average time it took for a search was: %d\n", (ai2.getElapsedTime()/ai2.getLaps()));
-            System.out.printf("The maximum time it took for a search was: %d\n", ai2.getMaxTime());
-        }
-        else {
-            try {
-                FileWriter writer = new FileWriter("./statistics/Statistics.txt", true);
-                var bf = new BufferedWriter(writer);
-                PrintWriter out = new PrintWriter(bf);
-                out.print(String.format("---------\nBlack won: %d\nWhite won: %d\nDraws: %d\n", blackWon,whiteWon,draws));
-                out.print(String.format("The average number of white tokens at the end of a game was: %d\n", averageWhiteTokens));
-                out.print(String.format("The average number of black tokens at the end of a game was: %d\n", averageBlackTokens));
-                out.printf("The average time it took for a search was: %d\n", (ai2.getElapsedTime()/ai2.getLaps()));
-                out.printf("The maximum time it took for a search was: %d\n", ai2.getMaxTime());
-                bf.close();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+        StringBuffer sb = new StringBuffer();
+        sb.append(String.format("Black won: %d\nWhite won: %d\nDraws: %d\n", blackWon,whiteWon,draws));
+        sb.append(String.format("The average number of white tokens at the end of a game was: %d\n", averageWhiteTokens));
+        sb.append(String.format("The average number of black tokens at the end of a game was: %d\n", averageBlackTokens));
+        sb.append(String.format("The average time it took for a search was: %d\n", (ai2.getElapsedTime()/ai2.getLaps())));
+        sb.append(String.format("The maximum time it took for a search was: %d\n", ai2.getMaxTime()));
+
+
+        return sb.toString();
     }
 }
