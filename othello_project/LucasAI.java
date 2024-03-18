@@ -15,6 +15,10 @@ public class LucasAI implements IOthelloAI{
         laps = 0;
     }
 
+    public LucasAI(int randomSeed) {
+        MAX_TIME += randomSeed;
+    }
+
     @Override
     public Position decideMove(GameState s) {
         long timer = System.currentTimeMillis();

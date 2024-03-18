@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -71,9 +72,10 @@ public class OthelloStatistic {
     }
 
     private static String playGames() {
+        int randomNum = ThreadLocalRandom.current().nextInt(-5, 5 + 1);
         int size = 8;				        // Number of rows and columns on the board
         IOthelloAI ai1 = new DumAI();	                    // The AI for player 1
-        LucasAI ai2 = new LucasAI();			// The AI for player 2
+        LucasAI ai2 = new LucasAI(randomNum);			// The AI for player 2
         int numberOfGames = 1;            // Number of games to be simulated
         int blackWon = 0;                   // Counter for black wins
         int whiteWon = 0;                   // Counter for white wins
