@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class LucasAI implements IOthelloAI{
+public class OthelloAI69 implements IOthelloAI{
     int MAX_DEPTH = 8;
     int MAX_TIME = 9500;
     int CORNER_REWARD = 20;
@@ -9,13 +9,13 @@ public class LucasAI implements IOthelloAI{
     long maxTime;
     int laps;
 
-    public LucasAI() {
+    public OthelloAI69() {
         elapsedTime = 0;
         maxTime = 0;
         laps = 0;
     }
 
-    public LucasAI(int randomSeed) {
+    public OthelloAI69(int randomSeed) {
         MAX_TIME += randomSeed;
         elapsedTime = 0;
         maxTime = 0;
@@ -66,8 +66,8 @@ public class LucasAI implements IOthelloAI{
     private Tuple maxValue(GameState s, int depth, Position p, int alpha, int beta, long timer) {
         ArrayList<Position> moves = s.legalMoves();
 
-        if (moves.isEmpty() || depth == MAX_DEPTH || System.currentTimeMillis() - timer > MAX_TIME) {   // Terminal states
-            return new Tuple(p, utility(s, p, depth));
+        if (moves.isEmpty() || depth == MAX_DEPTH || System.currentTimeMillis() - timer > MAX_TIME) {   // Is-Cutoff states
+            return new Tuple(p, eval(s, p, depth));
         }
 
         Tuple best = new Tuple(new Position(-1,-1), Integer.MIN_VALUE);
@@ -92,8 +92,8 @@ public class LucasAI implements IOthelloAI{
     private Tuple minValue(GameState s, int depth, Position p, int alpha, int beta, long timer) {
         ArrayList<Position> moves = s.legalMoves();
 
-        if (moves.isEmpty() || depth == MAX_DEPTH || System.currentTimeMillis() - timer > MAX_TIME) {   // Terminal states
-            return new Tuple(p, utility(s, p, depth));
+        if (moves.isEmpty() || depth == MAX_DEPTH || System.currentTimeMillis() - timer > MAX_TIME) {   // Is-Cutoff states
+            return new Tuple(p, eval(s, p, depth));
         }
 
         Tuple best = new Tuple(new Position(-1,-1), Integer.MAX_VALUE);
@@ -123,7 +123,7 @@ public class LucasAI implements IOthelloAI{
         return s;
     }
 
-    private int utility(GameState s, Position p, int depth) {
+    private int eval(GameState s, Position p, int depth) {                                              // Calculate the expected utility of a state
         int aux = 0;
 
         aux += getCornerEdgeUtility(s, p);
