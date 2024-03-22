@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class OthelloStatistic {
     public static void main(String[] args) {
-        int iterations = Integer.parseInt(args[0]);
+        int iterations = Integer.parseInt(args[0]); // Number of games to be simulated
         ExecutorService executor = Executors.newFixedThreadPool(iterations);
 
         List<Future<String>> futures = new ArrayList<>();
@@ -39,7 +39,6 @@ public class OthelloStatistic {
 
         spinnerThread.start(); // Start the spinner thread
 
-        //To disable iterative simulations from depth 1 to aiDepth, comment this for loop out
         for (int i = 0; i < iterations; i++) {
             futures.add(executor.submit(() -> OthelloStatistic.playGames()));
         }
@@ -48,9 +47,9 @@ public class OthelloStatistic {
         while (!executor.isTerminated()) {
         }
 
-        isRunning.set(false); // Stop the spinner thread
+        isRunning.set(false);       // Stop the spinner thread
         try {
-            spinnerThread.join(); // Wait for the spinner thread to finish
+            spinnerThread.join();            // Wait for the spinner thread to finish
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -65,12 +64,13 @@ public class OthelloStatistic {
         }
 
         System.out.println("Finished all threads");
-        
-        // And remove the comment below
-        // playGames();
-        
     }
 
+    /**
+     * This method plays a game of Othello between two AI's and returns a string with the results.
+     * It will initialize the game with a random number of seconds between -5 and 5 for the OthelloAI69 bot.
+     * @return A string with the results of the game.
+     */
     private static String playGames() {
         int randomNum = ThreadLocalRandom.current().nextInt(-5, 5 + 1) * 1000;
         int size = 8;				        // Number of rows and columns on the board
@@ -89,24 +89,18 @@ public class OthelloStatistic {
             while (!state.isFinished()) {
                 if (state.legalMoves().isEmpty()) state.changePlayer();
                 Position move;
-                if (state.getPlayerInTurn() == 1) {
-                    //System.out.println("Black's turn");
+                if (state.getPlayerInTurn() == 1) 
                     move = ai1.decideMove(state);
-                }
-                else {
-                    //System.out.println("White's turn");
+                else 
                     move = ai2.decideMove(state);
-                }
                 state.insertToken(move);
             }
             int[] terminalState = state.countTokens();
 
-            if(terminalState[0] > terminalState[1]) {
+            if(terminalState[0] > terminalState[1])
                 blackWon++;
-            }
-            else if(terminalState[0] < terminalState[1]) {
+            else if(terminalState[0] < terminalState[1])
                 whiteWon++;
-            }
             else draws++;
 
             averageWhiteTokens += terminalState[1];
@@ -116,7 +110,7 @@ public class OthelloStatistic {
         averageBlackTokens = averageBlackTokens/numberOfGames;
 
 
-        // Handles printing and file writing
+        // Handles appending the game results to the StringBuffer
         StringBuffer sb = new StringBuffer();
         sb.append(String.format("Black won: %d\nWhite won: %d\nDraws: %d\n", blackWon,whiteWon,draws));
         sb.append(String.format("The average number of white tokens at the end of a game was: %d\n", averageWhiteTokens));

@@ -41,6 +41,7 @@ public class OthelloAI69 implements IOthelloAI{
 
         int alpha = Integer.MIN_VALUE, beta = Integer.MAX_VALUE;
 
+        // Based on the player in turn, call the appropriate function
         if (isBlackTurn(s)) {
             best = new Tuple (new Position(-1,-1), Integer.MIN_VALUE);
             for (Position p : s.legalMoves()) {
@@ -196,9 +197,9 @@ public class OthelloAI69 implements IOthelloAI{
 
     /**
      * Returns a reward for the position p based on its location on the board.
-     * @param s
-     * @param p
-     * @return
+     * @param s the current GameState
+     * @param p the position that has to be played
+     * @return Returns a reward for the position p based on its location on the board
      */
     private int getCornerEdgeUtility(GameState s, Position p) {
         int aux = 0;
