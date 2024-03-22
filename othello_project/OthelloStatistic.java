@@ -72,11 +72,11 @@ public class OthelloStatistic {
     }
 
     private static String playGames() {
-        int randomNum = ThreadLocalRandom.current().nextInt(-5, 5 + 1);
+        int randomNum = ThreadLocalRandom.current().nextInt(-5, 5 + 1) * 1000;
         int size = 8;				        // Number of rows and columns on the board
-        IOthelloAI ai1 = new DumAI();	                    // The AI for player 1
-        OthelloAI69 ai2 = new OthelloAI69(randomNum);			// The AI for player 2
-        int numberOfGames = 1;            // Number of games to be simulated
+        IOthelloAI ai1 = new DumAI();	    // The AI for player 1
+        OthelloAI69 ai2 = new OthelloAI69(randomNum); // The AI for player 2
+        int numberOfGames = 1;              // Number of games to be simulated
         int blackWon = 0;                   // Counter for black wins
         int whiteWon = 0;                   // Counter for white wins
         int draws = 0;                      // Counter for draws
